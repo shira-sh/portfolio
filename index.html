@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ירדן שירה | Full Stack Developer</title>
+<meta name="description" content="ירדן שירה - מפתחת Full Stack. בונה מערכות חכמות, אתרים ודשבורדים עם עיצוב נקי וקוד מסודר." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg-0: #05060d;
+    --bg-1: #0a0d1c;
+    --bg-2: #0f1430;
+    --ink: #e8ecff;
+    --ink-dim: #9aa3c7;
+    --accent: #7c9cff;
+    --accent-2: #b388ff;
+    --accent-3: #4fd1ff;
+    --glass: rgba(255,255,255,0.04);
+    --glass-strong: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.09);
+    --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    --radius: 18px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Heebo', system-ui, -apple-system, sans-serif;
+    background: var(--bg-0);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+  /* ===== Animated background ===== */
+  .bg-fx {
+    position: fixed; inset: 0; z-index: -2; overflow: hidden;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(124,156,255,0.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 20%, rgba(179,136,255,0.15), transparent 60%),
+      radial-gradient(800px 600px at 50% 110%, rgba(79,209,255,0.12), transparent 60%),
+      linear-gradient(180deg, #05060d 0%, #07091a 50%, #05060d 100%);
+  }
+  .bg-grid {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .orb {
+    position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.55;
+    z-index: -1; pointer-events: none; animation: float 18s ease-in-out infinite;
+  }
+  .orb.a { width: 420px; height: 420px; background: #5b7cff; top: -120px; right: -120px; }
+  .orb.b { width: 360px; height: 360px; background: #b388ff; bottom: -100px; left: -100px; animation-delay: -6s; }
+  .orb.c { width: 280px; height: 280px; background: #4fd1ff; top: 50%; left: 40%; animation-delay: -12s; opacity: 0.3; }
+  @keyframes float {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(30px,-40px) scale(1.08); }
+  }
+
+  /* ===== Layout ===== */
+  .container { width: min(1200px, 92%); margin: 0 auto; }
+  section { padding: 110px 0; position: relative; }
+  h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+
+  /* ===== Navbar ===== */
+  .nav {
+    position: fixed; top: 18px; inset-inline: 0; z-index: 50;
+    display: flex; justify-content: center; pointer-events: none;
+  }
+  .nav-inner {
+    pointer-events: auto;
+    display: flex; align-items: center; gap: 26px;
+    padding: 12px 22px;
+    background: rgba(10,13,28,0.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 18px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .nav a { color: var(--ink-dim); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav a:hover { color: var(--ink); }
+  @media (max-width: 720px) { .nav-inner > a:not(.nav-logo) { display: none; } }
+
+  /* ===== Hero ===== */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 120px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 16px; border-radius: 999px;
+    background: var(--glass); border: 1px solid var(--border);
+    font-size: 13px; color: var(--ink-dim); margin-bottom: 28px;
+    backdrop-filter: blur(10px);
+  }
+  .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 12px #4ade80; }
+  .hero h1 {
+    font-size: clamp(44px, 7vw, 92px);
+    background: linear-gradient(180deg, #ffffff 0%, #b9c2eb 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 18px;
+  }
+  .hero .subtitle {
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 22px;
+    background: linear-gradient(90deg, var(--accent-3), var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead {
+    max-width: 640px;
+    font-size: 24px;
+    color: var(--ink-dim);
+    margin-bottom: 38px;
+  }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 26px; border-radius: 999px;
+    font-family: inherit; font-size: 15px; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: 1px solid transparent;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s;
+  }
+  .btn-primary {
+    color: #0a0d1c;
+    background: linear-gradient(135deg, #c7d4ff, #ffffff);
+    box-shadow: 0 10px 30px rgba(124,156,255,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(124,156,255,0.55); }
+  .btn-ghost {
+    color: var(--ink);
+    background: var(--glass);
+    border-color: var(--border);
+    backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover { background: var(--glass-strong); transform: translateY(-2px); }
+  .btn .arrow { transition: transform .25s; }
+  .btn:hover .arrow { transform: translateX(-4px); } /* RTL */
+
+  /* ===== Section heading ===== */
+  .eyebrow {
+    display: inline-block; font-size: 12px; letter-spacing: 0.25em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 14px;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+  }
+  .section-title {
+    font-size: clamp(32px, 4.5vw, 52px);
+    margin-bottom: 18px;
+    background: linear-gradient(180deg, #ffffff 0%, #aab4dc 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .section-sub { color: var(--ink-dim); max-width: 680px; font-size: 16px; }
+
+  /* ===== About ===== */
+  .about-card {
+    margin-top: 40px;
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    font-size: 17px;
+    color: #c8cfee;
+    box-shadow: var(--shadow);
+  }
+
+  /* ===== Skills ===== */
+  .skills-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+  }
+  .skill-chip {
+    padding: 18px 14px;
+    text-align: center;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    backdrop-filter: blur(10px);
+    transition: all .3s ease;
+    position: relative; overflow: hidden;
+  }
+  .skill-chip::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(124,156,255,0.18), rgba(179,136,255,0.18));
+    opacity: 0; transition: opacity .3s;
+  }
+  .skill-chip:hover { transform: translateY(-4px); border-color: rgba(124,156,255,0.4); box-shadow: 0 12px 28px rgba(124,156,255,0.15); }
+  .skill-chip:hover::before { opacity: 1; }
+  .skill-chip span { position: relative; z-index: 1; }
+
+  /* ===== Projects ===== */
+  .projects-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 26px;
+  }
+  .project-card {
+    background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    backdrop-filter: blur(14px);
+    transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .project-card::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    border-radius: 22px;
+    background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 0%), rgba(124,156,255,0.18), transparent 40%);
+    opacity: 0; transition: opacity .3s;
+  }
+  .project-card:hover { transform: translateY(-8px); border-color: rgba(124,156,255,0.35); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+  .project-card:hover::after { opacity: 1; }
+  .project-img {
+    aspect-ratio: 16/10; width: 100%; overflow: hidden; position: relative;
+    background: linear-gradient(135deg, #1a1f3d, #0c0f24);
+  }
+  .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .project-card:hover .project-img img { transform: scale(1.08); }
+  .project-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(5,6,13,0.7));
+  }
+  .project-body { padding: 24px 22px 26px; display: flex; flex-direction: column; flex: 1; }
+  .project-body h3 { font-size: 22px; margin-bottom: 10px; }
+  .project-body p { color: var(--ink-dim); font-size: 14.5px; margin-bottom: 18px; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tag {
+    font-size: 12px; padding: 5px 11px; border-radius: 999px;
+    background: rgba(124,156,255,0.1); color: #b9c8ff;
+    border: 1px solid rgba(124,156,255,0.2); font-weight: 500;
+  }
+  .project-btn {
+    margin-top: auto; align-self: flex-start;
+    padding: 10px 18px; font-size: 14px; font-weight: 600;
+    color: var(--ink); text-decoration: none;
+    background: var(--glass-strong);
+    border: 1px solid var(--border); border-radius: 999px;
+    transition: all .25s;
+  }
+  .project-btn:hover { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #0a0d1c; border-color: transparent; }
+
+  /* ===== Why me ===== */
+  .why-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+  }
+  .why-card {
+    padding: 32px 26px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    backdrop-filter: blur(14px);
+    transition: all .35s;
+    position: relative; overflow: hidden;
+  }
+  .why-card:hover { transform: translateY(-6px); border-color: rgba(179,136,255,0.4); }
+  .why-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(124,156,255,0.25), rgba(179,136,255,0.25));
+    border: 1px solid rgba(124,156,255,0.3);
+    margin-bottom: 18px;
+    font-size: 22px;
+  }
+  .why-card h3 { font-size: 19px; margin-bottom: 8px; }
+  .why-card p { color: var(--ink-dim); font-size: 14px; }
+
+  /* ===== Contact ===== */
+  .contact-card {
+    margin-top: 50px;
+    padding: 60px 40px;
+    text-align: center;
+    background: linear-gradient(160deg, rgba(124,156,255,0.08), rgba(179,136,255,0.06));
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow);
+  }
+  .contact-card p { color: var(--ink-dim); font-size: 17px; max-width: 620px; margin: 0 auto 32px; }
+  .contact-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+  /* ===== Footer ===== */
+  footer {
+    padding: 40px 0; text-align: center;
+    color: var(--ink-dim); font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ===== Reveal animation ===== */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    section { padding: 80px 0; }
+    .about-card, .contact-card { padding: 30px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-fx"></div>
+<div class="bg-grid"></div>
+<div class="orb a"></div>
+<div class="orb b"></div>
+<div class="orb c"></div>
+
+<!-- ===== Navbar ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" >מי אני</a>
+    <a href="#about">אודות</a>
+    <a href="#skills">כישורים</a>
+    <a href="#projects">פרויקטים</a>
+    <a href="#contact">צור קשר</a>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="reveal">
+      <div class="hero-badge"><span class="dot"></span> זמינה לפרויקטים חדשים</div>
+    </div>
+    <h1 class="reveal"> ירדן שירה</h1>
+    <div class="subtitle reveal">מפתחת Full Stack | בונה מערכות חכמות, אתרים ודשבורדים באמצעות כלי AI וכלי אוטומציה</div>
+    <p class="lead reveal">
+     אני מפתחת מערכות Web מקצה לקצה - עם חשיבה עסקית, חוויית משתמש מדויקת וקוד מסודר ברמה גבוהה.
+<strong> אני עובדת בשיטה מהירה ויעילה שמאפשרת לי להפוך רעיונות למערכות מרשימות, מדויקות וחכמות</strong> - עם תוצאה שנראית ומרגישה מקצועית מהשנייה הראשונה.
+    </p>
+    <div class="cta-row reveal">
+      <a href="#projects" class="btn btn-primary">צפייה בפרויקטים <span class="arrow">←</span></a>
+      <a href="#contact" class="btn btn-ghost">יצירת קשר</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== About ===== -->
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">About</span>
+      <h2 class="section-title">קצת עליי</h2>
+    </div>
+    <div class="about-card reveal">
+    אני מפתחת Full Stack עם תואר במדעי המחשב ו־6 שנות ניסיון בפיתוח מערכות Web מקצה לקצה.
+יש לי ניסיון בפיתוח עם React, Node.js, JavaScript, CSS, MongoDB, SQL ו־API Development, כולל בניית מערכות ניהול, טפסים דיגיטליים, דשבורדים, אוטומציות וחיבורים בין מערכות.
+    </br>
+בעבר הובלתי צוות פיתוח בפרויקט MERN Stack מתקדם שכלל פיתוח Editor מורכב בסגנון Canva, וצברתי ניסיון גם בפיתוח Frontend בחברת הביטוח הפניקס.
+אני משלבת יכולת טכנית חזקה עם חשיבה עסקית, הבנה עיצובית וחוויית משתמש מדויקת - כדי לבנות מערכות מקצועיות, חכמות ומרשימות שבאמת מייצרות ערך.
+    </div>
+  </div>
+</section>
+
+<!-- ===== Skills ===== -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Stack</span>
+      <h2 class="section-title">הכלים שלי</h2>
+      <p class="section-sub">טכנולוגיות וכלים שאני עובדת איתם ביום-יום.</p>
+    </div>
+    <div class="skills-grid reveal" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Work</span>
+      <h2 class="section-title">פרויקטים נבחרים</h2>
+      <p class="section-sub">מבחר עבודות שמדגימות את הגישה שלי – פונקציונליות, עיצוב ופרטים.</p>
+    </div>
+    <div class="projects-grid reveal" id="projectsGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Why me ===== -->
+<section id="why">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Why me</span>
+      <h2 class="section-title">למה לעבוד איתי?</h2>
+    </div>
+    <div class="why-grid reveal" id="whyGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 class="section-title">בואו נדבר</h2>
+    </div>
+    <div class="contact-card reveal">
+      <p>מחפשת את האתגר הבא שלי ומגיעה עם מוטיבציה, אחריות ויכולת להרים מוצר מקצה לקצה.</p>
+      <div class="contact-row">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<a class="btn btn-primary" href="mailto:y.melamed264@gmail.com">
+  
+  y.melamed264@gmail.com
+  <i class="fa-regular fa-envelope"></i>
+</a>
+
+<a class="btn btn-primary" href="tel:0548451910">
+
+  054-845-1910
+    <i class="fa-solid fa-phone"></i>
+</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> ירדן שירה · נבנה באהבה ובקוד נקי
+</footer>
+
+<script>
+  // ===== Skills data =====
+  const SKILLS = ["React","JavaScript","HTML","CSS","Node.js","MongoDB","SQL","WSO2","REST API","Figma","GitHub","Automation"];
+
+  // ===== Projects data =====
+  // 🔧 כדי לערוך פרויקט: שני את image / link / title / description / tags כאן
+  const PROJECTS = [
+    {
+      title: "גיליז קייטרינג",
+      description: "מערכת ניהול לקייטרינג הכוללת הזמנות, לקוחות, תפריטים, חישובי מחיר ודוחות - הכל מגיע ללקוח ישירות לנייד ומסד הנתונים שלו.",
+      tags: [],
+      image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=80",
+      link: "https://giliscatering.co.il/"
+    },
+       {
+      title: "מערכת CRM  מטורפת לניהול יומן עסק (קוסמטיקאית)",
+      description:"מערכת דינמית ואינטראקטיבית עם הרבה פיצ'רים קטנים והפתעות שמגלים תוך כדי שימוש.מוזמנים להיכנס, ללחוץ, לחקור - ולחוות את החשיבה שמאחורי הפרטים.",
+      tags: [],
+      image: "assets/crm.png",
+      link: "https://sapir-clinic-flow.y-melamed264.workers.dev/"
+    },
+    {
+      title: "Smart Task Dashboard",
+      description: "דשבורד חכם לניהול משימות, עומס קוגניטיבי, התקדמות יומית וחוויית משתמש רגועה.",
+      tags: [],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      link: "https://example.com"
+    },
+    {
+      title: "תוסףנגישות לאתרים לא מונגשים - מתקינים את התוסף והאתר מונגש!",
+      description: "ווידג׳ט נגישות מותאם אישית עם אפשרויות תצוגה, ניגודיות, הגדלת טקסט והתאמות משתמש.",
+      tags: ["קוד JS"],
+      image: "assets/accessibility.png",
+      link: ""
+    },
+    {
+      title: "ENGLISH LEARNING GAME FOR KIDS",
+      description: " משחק מחשב שעובד גם OFFLINE לכל הגילאים (המשחק עדיין בהקמה)",
+      tags: [],
+      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80",
+      link: "https://example.com"
+    }
+  ];
+
+  // ===== Why-me data =====
+  const WHY = [
+    { icon: "◈", title: "חשיבה מערכתית", desc: "רואה את המוצר כולו - מהלוגיקה והארכיטקטורה ועד לחוויית המשתמש והפרטים הקטנים ביותר.אני משלבת בתהליך העבודה מערכות AI מתקדמות שבניתי 🤖, כדי לזהות נקודות חולשה, לדייק החלטות ולבנות מוצרים חכמים, מהירים ומדויקים יותר." },
+    { icon: "✦", title: "ירידה לפרטים", desc: "אכפת לי מהפרטים הקטנים - כי הם אלה שהופכים מערכת מטובה למדויקת באמת. מוזמנים להיכנס לפרויקטים שכאן, לחקור, ללחוץ ולחוות את החשיבה שמאחורי כל פרט." },
+    { icon: "❖", title: "עיצוב וחוויית משתמש", desc:" משלבת חשיבה עיצובית וחוויית משתמש בכל שורת קוד, עם יכולת להסתכל על המוצר גם מנקודת המבט של הלקוח וגם של המשתמש - כדי לדייק כל פרט בתוצאה הסופית." },
+    { icon: "↯", title: "יכולת למידה מהירה", desc: "מאמצת טכנולוגיות חדשות במהירות ויודעת להפוך רעיונות למערכות אמיתיות בזמן קצר במיוחד. וכמה זמן לקח לי לבנות את כל מה שאתם רואים כאן? כנראה פחות ממה שתחשבו 😉" }
+  ];
+
+  // ===== Render =====
+  const skillsGrid = document.getElementById('skillsGrid');
+  SKILLS.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'skill-chip';
+    el.innerHTML = `<span>${s}</span>`;
+    skillsGrid.appendChild(el);
+  });
+
+  const projectsGrid = document.getElementById('projectsGrid');
+  PROJECTS.forEach(p => {
+    const card = document.createElement('article');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <div class="project-img"><img src="${p.image}" alt="${p.title}" loading="lazy"></div>
+      <div class="project-body">
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <a class="project-btn" href="${p.link}" target="_blank" rel="noopener">לצפייה באתר ←</a>
+      </div>`;
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+    projectsGrid.appendChild(card);
+  });
+
+  const whyGrid = document.getElementById('whyGrid');
+  WHY.forEach(w => {
+    const el = document.createElement('div');
+    el.className = 'why-card';
+    el.innerHTML = `<div class="why-icon">${w.icon}</div><h3>${w.title}</h3><p>${w.desc}</p>`;
+    whyGrid.appendChild(el);
+  });
+
+  // ===== Reveal on scroll =====
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ===== Footer year =====
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+
+<!-- Injection By NetFree -->
+<script src="//netfree.link/injection-script/go-payment.js" type="text/javascript" async ></script>
+<script src="//netfree.link/injection-script/popup-card-init.js" type="text/javascript" async ></script>
