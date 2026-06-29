@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ירדן שירה | Full Stack Developer</title>
   <meta name="description"
-    content="ירדן שירה - מפתחת Full Stack. בונה מערכות חכמות, אתרים ודשבורדים עם עיצוב נקי וקוד מסודר." />
+    content="ירדן שירה - מפתחת Full Stack. בונה מערכות Web, תהליכים דיגיטליים, אוטומציות ודשבורדים עם חשיבה עסקית, חוויית משתמש וקוד מסודר." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -659,6 +659,115 @@
       font-size: 14px;
     }
 
+
+    /* ===== Expertise ===== */
+    .expertise-grid {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .expertise-card {
+      position: relative;
+      overflow: hidden;
+      padding: 34px 28px;
+      min-height: 310px;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      backdrop-filter: blur(14px);
+      transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    }
+
+    .expertise-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(124, 156, 255, 0.38);
+      box-shadow: 0 26px 55px rgba(0, 0, 0, 0.36);
+    }
+
+    .expertise-card.featured {
+      border-color: rgba(79, 209, 255, 0.35);
+      background:
+        radial-gradient(500px circle at 10% 0%, rgba(79, 209, 255, 0.12), transparent 45%),
+        radial-gradient(520px circle at 90% 100%, rgba(179, 136, 255, 0.12), transparent 45%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+    }
+
+    .expertise-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      font-size: 27px;
+      background: linear-gradient(135deg, rgba(124, 156, 255, 0.25), rgba(79, 209, 255, 0.16));
+      border: 1px solid rgba(124, 156, 255, 0.28);
+    }
+
+    .expertise-card h3 {
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .expertise-card p {
+      color: var(--ink-dim);
+      font-size: 15px;
+      margin-bottom: 18px;
+    }
+
+    .expertise-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .expertise-list span {
+      font-size: 12px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      color: #cfe8ff;
+      background: rgba(79, 209, 255, 0.08);
+      border: 1px solid rgba(79, 209, 255, 0.18);
+      font-weight: 600;
+    }
+
+    .expertise-card .project-btn {
+      margin-top: auto;
+    }
+
+    .project-card.featured-process {
+      border-color: rgba(79, 209, 255, 0.36);
+      background:
+        radial-gradient(500px circle at 20% 0%, rgba(79, 209, 255, 0.13), transparent 44%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025));
+    }
+
+    .project-card.featured-process .project-img {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(79, 209, 255, 0.28), transparent 24%),
+        radial-gradient(circle at 76% 20%, rgba(179, 136, 255, 0.24), transparent 24%),
+        linear-gradient(135deg, #111a3d, #090b18);
+    }
+
+    .project-card.featured-process .project-img::before {
+      content: 'טופס → מאגר מידע → אוטומציה → דשבורד';
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      color: #ffffff;
+      text-align: center;
+      font-size: clamp(18px, 2.3vw, 25px);
+      font-weight: 800;
+      z-index: 1;
+    }
+
     /* ===== Contact ===== */
     .contact-card {
       margin-top: 50px;
@@ -734,6 +843,7 @@
       <a href="#about">אודות</a>
       <a href="#skills">כישורים</a>
       <a href="#projects">פרויקטים</a>
+      <a href="#expertise">תהליכים דיגיטליים</a>
       <a href="#contact">צור קשר</a>
     </div>
   </nav>
@@ -745,45 +855,44 @@
         <div class="hero-badge"><span class="dot"></span> זמינה לפרויקטים חדשים</div>
       </div>
       <h1 class="reveal"> ירדן שירה</h1>
-      <div class="subtitle reveal">מפתחת Full Stack | בונה מערכות חכמות, אתרים ודשבורדים באמצעות כלי AI וכלי אוטומציה
+      <div class="subtitle reveal">מפתחת Full Stack | בונה מערכות Web, תהליכים דיגיטליים, אוטומציות ודשבורדים
       </div>
-      <p class="lead reveal">
-        אני מפתחת מערכות Web מקצה לקצה - עם חשיבה עסקית, חוויית משתמש מדויקת וקוד מסודר ברמה גבוהה.
-        <strong> אני עובדת בשיטה מהירה ויעילה שמאפשרת לי להפוך רעיונות למערכות מרשימות, מדויקות וחכמות</strong> - עם
-        תוצאה שנראית ומרגישה מקצועית מהשנייה הראשונה.
-      </p>
+  <p class="lead reveal">
+  אני מפתחת מערכות Web ותהליכים דיגיטליים מקצה לקצה - עם חשיבה עסקית, חוויית משתמש מדויקת וקוד מסודר ברמה גבוהה.
+  <strong>אני בונה מערכות דיגיטליות חכמות המשלבות Web, אוטומציה ו-AI - והופכת רעיונות ותהליכים ידניים לפתרונות שמייצרים ערך אמיתי לעסק.</strong>
+</p>
       <div class="cta-row reveal">
         <a href="#projects" class="btn btn-primary">צפייה בפרויקטים <span class="arrow">←</span></a>
+        <a href="#expertise" class="btn btn-ghost">מה אני בונה?</a>
         <a href="#contact" class="btn btn-ghost">יצירת קשר</a>
       </div>
     </div>
   </header>
 
   <!-- ===== About ===== -->
-  <section id="about">
-    <div class="container">
-      <div class="reveal">
-        <span class="eyebrow">About</span>
-        <h2 class="section-title">קצת עליי</h2>
-      </div>
-      <div class="about-card reveal">
-        אני מפתחת Full Stack עם תואר במדעי המחשב ו־6 שנות ניסיון בפיתוח מערכות Web מקצה לקצה.
-        יש לי ניסיון בפיתוח עם React, Node.js, JavaScript, CSS, MongoDB, SQL ו־API Development, כולל בניית מערכות ניהול,
-        טפסים דיגיטליים, דשבורדים, אוטומציות וחיבורים בין מערכות.
-        <br><br>
-
-        בעבר הובלתי צוות פיתוח בפרויקט MERN Stack מתקדם שכלל פיתוח Editor מורכב בסגנון Canva, וצברתי ניסיון גם בפיתוח
-        Frontend בחברת הביטוח הפניקס.
-        אני משלבת יכולת טכנית חזקה עם חשיבה עסקית, הבנה עיצובית וחוויית משתמש מדויקת - כדי לבנות מערכות מקצועיות, חכמות
-        ומרשימות שבאמת מייצרות ערך.
-        <br><br>
-
-        אני חלק מקהילת פיתוח, אוטומציה ו־AI גדולה ודינמית, מה שמאפשר לי להישאר מעודכנת בטכנולוגיות, כלים ושיטות עבודה
-        מהמתקדמים בתחום.
-        הלמידה והחקירה הן חלק בלתי נפרד מהעבודה שלי - ואני נהנית להפוך רעיונות חדשים לפתרונות אמיתיים.
-      </div>
+<section id="about">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">About</span>
+      <h2 class="section-title">קצת עליי</h2>
     </div>
-  </section>
+
+    <div class="about-card reveal">
+      אני מפתחת Full Stack עם תואר במדעי המחשב ו־6 שנות ניסיון בפיתוח מערכות Web מקצה לקצה.
+      אני מתמחה בהפיכת רעיונות, תהליכים עסקיים וצרכים מורכבים למערכות דיגיטליות חכמות, יציבות ונוחות לשימוש - החל משלב האפיון ועד למוצר שעובד בפועל.
+      <br><br>
+
+      במהלך השנים פיתחתי מערכות ניהול, פורטלים, דשבורדים, טפסים דיגיטליים, אוטומציות וחיבורים בין מערכות, תוך עבודה עם React, Node.js, JavaScript, CSS, MongoDB, SQL ו־API Development.
+      בעבר הובלתי צוות פיתוח בפרויקט MERN Stack מתקדם שכלל פיתוח Editor מורכב בסגנון Canva, וצברתי ניסיון גם בפיתוח Frontend בחברת הביטוח הפניקס.
+      <br><br>
+
+      מעבר לכתיבת קוד, אני מביאה חשיבה עסקית, חוויית משתמש מדויקת וראייה מערכתית. אני משלבת פתרונות AI ואוטומציה כחלק מהמערכות שאני מפתחת, במטרה לחסוך עבודה ידנית, לייעל תהליכים ולהעניק לעסק כלים שמייצרים ערך אמיתי.
+      <br><br>
+
+      אני חלק מקהילת פיתוח, אוטומציה ו־AI גדולה ודינמית, מקפידה ללמוד טכנולוגיות חדשות ולהתעדכן באופן שוטף. מבחינתי, הפיתוח לא מסתיים כשהמערכת עובדת - אלא כשהיא באמת עוזרת לעסק לעבוד טוב יותר.
+    </div>
+  </div>
+</section>
 
   <!-- ===== Skills ===== -->
   <section id="skills">
@@ -797,13 +906,67 @@
     </div>
   </section>
 
+
+  <!-- ===== Expertise ===== -->
+  <section id="expertise">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">Digital Solutions</span>
+        <h2 class="section-title">מה אני בונה?</h2>
+        <p class="section-sub">לא רק אתרים. אני בונה פתרונות שמחברים בין הצורך העסקי, הממשק, הנתונים והאוטומציות שמאחורי הקלעים.</p>
+      </div>
+
+      <div class="expertise-grid reveal">
+        <article class="expertise-card">
+          <div class="expertise-icon">▣</div>
+          <h3>מערכות Web</h3>
+          <p>מערכות ניהול, CRM, פורטלים, דשבורדים ומוצרים מותאמים אישית - עם חוויית משתמש נקייה וקוד מסודר.</p>
+          <div class="expertise-list">
+            <span>CRM</span>
+            <span>מערכות ניהול</span>
+            <span>דשבורדים</span>
+            <span>פורטלים</span>
+          </div>
+          <a class="project-btn" href="#projects">צפייה בפרויקטים ←</a>
+        </article>
+
+        <article class="expertise-card featured">
+          <div class="expertise-icon">↯</div>
+          <h3>תהליכים דיגיטליים ואוטומציה</h3>
+          <p>הופכת תהליכים ידניים לתהליכים חכמים: מטופס דיגיטלי, דרך מאגר מידע מסודר ועד התראות, מסמכים ודוחות.</p>
+          <div class="expertise-list">
+            <span>טפסים חכמים</span>
+            <span>מאגרי מידע</span>
+            <span>אוטומציות</span>
+            <span>התראות</span>
+            <span>דוחות</span>
+          </div>
+          <a class="project-btn" href="https://round-tree-6dd8.y-melamed264.workers.dev/" target="_blank" rel="noopener">לצפייה בהדגמה ←</a>
+        </article>
+
+        <article class="expertise-card">
+          <div class="expertise-icon">✦</div>
+          <h3>UX + AI</h3>
+          <p>שילוב של חשיבה עסקית, חוויית משתמש וכלי AI שמקצרים תהליכים ועוזרים להגיע מהר יותר לתוצר מדויק.</p>
+          <div class="expertise-list">
+            <span>אפיון</span>
+            <span>UX</span>
+            <span>AI Workflow</span>
+            <span>שיפור תהליכים</span>
+          </div>
+          <a class="project-btn" href="#why">למה לעבוד איתי ←</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Projects ===== -->
   <section id="projects">
     <div class="container">
       <div class="reveal">
         <span class="eyebrow">Work</span>
         <h2 class="section-title">פרויקטים נבחרים</h2>
-        <p class="section-sub">מבחר עבודות שמדגימות את הגישה שלי – פונקציונליות, עיצוב , נגישות ועד לפרטים הקטנים.</p>
+        <p class="section-sub">מבחר עבודות שמדגימות את הגישה שלי - פונקציונליות, עיצוב, נגישות, אוטומציות וחשיבה מערכתית עד לפרטים הקטנים.</p>
       </div>
       <div class="projects-grid reveal" id="projectsGrid"></div>
     </div>
@@ -867,11 +1030,20 @@
 
   <script>
     // ===== Skills data =====
-    const SKILLS = ["React", "JavaScript", "HTML", "CSS", "Node.js", "MongoDB", "SQL", "WSO2", "REST API", "Figma", "GitHub", "Automation"];
+    const SKILLS = ["React", "JavaScript", "HTML", "CSS", "Node.js", "MongoDB", "SQL", "WSO2", "REST API", "Figma", "GitHub", "Automation", "Digital Forms", "Dashboards", "AI Tools"];
 
     // ===== Projects data =====
     // 🔧 כדי לערוך פרויקט: שני את image / link / title / description / tags כאן
     const PROJECTS = [
+      {
+        title: "תהליכים דיגיטליים ואוטומציות",
+        description: "דף הדגמה שממחיש איך טופס דיגיטלי יכול להפוך לתהליך עבודה מלא: קליטת נתונים, מאגר מידע, התראות, מסמכים ודשבורד ניהולי.",
+        tags: ["טפסים חכמים", "אוטומציה", "דשבורד", "AI"],
+        image: "",
+        link: "https://round-tree-6dd8.y-melamed264.workers.dev/",
+        status: "live",
+        featuredProcess: true
+      },
       {
         title: "גיליז קייטרינג - אתר באויר",
         description: "מערכת ניהול לקייטרינג הכוללת הזמנות, לקוחות, תפריטים, חישובי מחיר ודוחות - הכל מגיע ללקוח ישירות לנייד ומסד הנתונים שלו.",
@@ -986,9 +1158,12 @@
       const statusMarkup = isBuilding ? `<div class="project-status">בבניה</div>` : '';
 
       const card = document.createElement('article');
-      card.className = `project-card${isBuilding ? ' building' : ''}`;
+      card.className = `project-card${isBuilding ? ' building' : ''}${p.featuredProcess ? ' featured-process' : ''}`;
+      const imageMarkup = p.featuredProcess
+        ? `<div class="project-img" role="img" aria-label="${p.title}"></div>`
+        : `<div class="project-img"><img src="${p.image}" alt="${p.title}" loading="lazy"></div>`;
       card.innerHTML = `
-      <div class="project-img"><img src="${p.image}" alt="${p.title}" loading="lazy"></div>
+      ${imageMarkup}
       <div class="project-body">
         ${statusMarkup}
         <h3>${p.title}</h3>
@@ -1035,3 +1210,7 @@
 <!-- Injection By NetFree -->
 <script src="//netfree.link/injection-script/go-payment.js" type="text/javascript" async></script>
 <script src="//netfree.link/injection-script/popup-card-init.js" type="text/javascript" async></script>
+
+<!-- Injection By NetFree -->
+<script src="https://netfree.link/injection-script/note-in-site.js" type="text/javascript" async  id="netfree-note-site" jsondata="%7B%22noteSite%22:%22%D7%9B%D7%93%D7%99%20%D7%A9%D7%94%D7%AA%D7%9E%D7%95%D7%A0%D7%95%D7%AA%20%D7%91%D7%90%D7%AA%D7%A8%20%D7%94%D7%96%D7%94%20%D7%99%D7%97%D7%96%D7%A8%D7%95%20%D7%9E%D7%91%D7%93%D7%99%D7%A7%D7%94%2C%20%D7%99%D7%A9%20%D7%9C%D7%94%D7%92%D7%93%D7%99%D7%A8%20%5C%22%D7%90%D7%A4%D7%A9%D7%A8%20%D7%9C%D7%A1%D7%A0%D7%9F%20%D7%AA%D7%95%D7%9B%D7%9F%20%D7%A9%D7%99%D7%93%D7%95%D7%A2%20%D7%9B%D7%90%D7%99%D7%A9%D7%99%20%D7%90%D7%95%20%D7%A4%D7%A8%D7%98%D7%99%5C%22%20%D7%91%D7%94%D7%92%D7%93%D7%A8%D7%95%D7%AA%20%D7%A1%D7%99%D7%A0%D7%95%D7%9F%20%5B%5B%D7%A6%D7%90%D7%98_AI_%D7%91%D7%A0%D7%98%D7%A4%D7%A8%D7%99%7C%D7%94%D7%99%D7%9B%D7%A0%D7%A1%D7%95%20%D7%9C%D7%9B%D7%90%D7%9F%20%D7%9C%D7%94%D7%A1%D7%91%D7%A8%20%D7%9E%D7%A4%D7%95%D7%A8%D7%98%5D%5D%22%2C%22noteSiteEn%22:%22For%20images%20on%20this%20website%20to%20work%20you%20need%20to%20set%20%5C%22Filter%20content%20that%20is%20known%20as%20personal%20or%20private%5C%22%20%5B%5BAI_Chats_in_NetFree%7CClick%20here%20to%20read%20more%5D%5D%22%7D"></script><script src="//netfree.link/injection-script/go-payment.js" type="text/javascript" async ></script>
+<script src="//netfree.link/injection-script/popup-card-init.js" type="text/javascript" async ></script>
