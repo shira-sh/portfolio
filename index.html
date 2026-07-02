@@ -403,6 +403,33 @@
       gap: 26px;
     }
 
+    .project-group {
+      margin-top: 54px;
+    }
+
+    .project-group:first-of-type {
+      margin-top: 44px;
+    }
+
+    .project-group-header {
+      max-width: 760px;
+    }
+
+    .project-group-title {
+      font-size: clamp(26px, 4vw, 38px);
+      margin-bottom: 10px;
+    }
+
+    .project-group-sub {
+      color: var(--ink-dim);
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .project-group .projects-grid {
+      margin-top: 26px;
+    }
+
     .project-card {
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
       border: 1px solid var(--border);
@@ -968,7 +995,7 @@
         <h2 class="section-title">פרויקטים נבחרים</h2>
         <p class="section-sub">מבחר עבודות שמדגימות את הגישה שלי - פונקציונליות, עיצוב, נגישות, אוטומציות וחשיבה מערכתית עד לפרטים הקטנים.</p>
       </div>
-      <div class="projects-grid reveal" id="projectsGrid"></div>
+      <div id="projectsGrid"></div>
     </div>
   </section>
 
@@ -1042,6 +1069,7 @@
         image: "assets/example.png",
         link: "https://round-tree-6dd8.y-melamed264.workers.dev/",
         status: "live",
+        category: "additional",
         // featuredProcess: true
       },
       {
@@ -1050,7 +1078,8 @@
         tags: [],
         image: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=80",
         link: "https://giliscatering.co.il/",
-        status: "live"
+        status: "live",
+        category: "websites"
       },
       {
         title: "אתר תדמית ללקוחה - עדיין בפיתוח",
@@ -1058,7 +1087,8 @@
         tags: [],
         image: "assets/אתר תדמית.png",
         link: "https://rinatnarinskidemo.pages.dev/",
-        status: "live"
+        status: "live",
+        category: "websites"
       },
           {
         title: "אתר ללקוחה - עדיין בפיתוח",
@@ -1066,7 +1096,8 @@
         tags: [],
         image: "assets/שירלבורא.png",
         link: "https://steady-cascaron-acda3e.netlify.app/",
-        status: "live"
+        status: "live",
+        category: "websites"
       },
       {
         title: "מערכת CRM  מטורפת לניהול יומן עסק (קוסמטיקאית)",
@@ -1074,7 +1105,8 @@
         tags: [],
         image: "assets/crm.png",
         link: "https://sapir-clinic-flow.y-melamed264.workers.dev/",
-        status: "live"
+        status: "live",
+        category: "additional"
       },
       {
         title: "תוסף נגישות לאתרים לא מונגשים - מתקינים את התוסף והאתר מונגש!",
@@ -1082,7 +1114,8 @@
         tags: ["קוד JS"],
         image: "assets/accessibility.png",
         link: "",
-        status: "live"
+         status: "live",
+        category: "additional"
       },
       {
 
@@ -1092,7 +1125,8 @@
         tags: [],
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
         link: "",
-        status: "building"
+        status: "building",
+        category: "additional"
       },
 
       {
@@ -1101,7 +1135,21 @@
         tags: [],
         image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1200&q=80",
         link: "",
-        status: "building"
+        status: "building",
+        category: "additional"
+      }
+    ];
+
+    const PROJECT_GROUPS = [
+      {
+        key: "websites",
+        title: "אתרים שפיתחתי",
+        description: "טעימה מתוך אתרים שבניתי ללקוחות ולעסקים - חלק קטן מתוך הניסיון שצברתי בתכנון, עיצוב, כתיבה, פיתוח והעלאה לאוויר."
+      },
+      {
+        key: "additional",
+        title: "פרויקטים ומוצרים נוספים",
+        description: "מערכות, תוספים, דשבורדים, אוטומציות ורעיונות שאני מפתחת מעבר לאתרי תדמית - כולל פרויקטים פעילים וכאלה שנמצאים עדיין בבנייה."
       }
     ];
 
@@ -1150,12 +1198,12 @@
       });
     }
 
-    PROJECTS.forEach(p => {
+    const createProjectCard = (p) => {
       const isBuilding = p.status === 'building';
       const buttonMarkup = isBuilding
-        ? `<button class="project-btn project-btn--building" type="button">בבניה</button>`
+        ? `<button class="project-btn project-btn--building" type="button">בבנייה</button>`
         : `<a class="project-btn" href="${p.link}" target="_blank" rel="noopener">לצפייה באתר ←</a>`;
-      const statusMarkup = isBuilding ? `<div class="project-status">בבניה</div>` : '';
+      const statusMarkup = isBuilding ? `<div class="project-status">בבנייה</div>` : '';
 
       const card = document.createElement('article');
       card.className = `project-card${isBuilding ? ' building' : ''}${p.featuredProcess ? ' featured-process' : ''}`;
@@ -1181,7 +1229,25 @@
         card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
         card.style.setProperty('--my', (e.clientY - r.top) + 'px');
       });
-      projectsGrid.appendChild(card);
+      return card;
+    };
+
+    PROJECT_GROUPS.forEach(group => {
+      const groupProjects = PROJECTS.filter(p => p.category === group.key);
+      if (!groupProjects.length) return;
+
+      const section = document.createElement('section');
+      section.className = 'project-group reveal';
+      section.innerHTML = `
+        <div class="project-group-header">
+          <h3 class="project-group-title">${group.title}</h3>
+          <p class="project-group-sub">${group.description}</p>
+        </div>
+        <div class="projects-grid"></div>`;
+
+      const grid = section.querySelector('.projects-grid');
+      groupProjects.forEach(p => grid.appendChild(createProjectCard(p)));
+      projectsGrid.appendChild(section);
     });
 
     const whyGrid = document.getElementById('whyGrid');
@@ -1206,4 +1272,3 @@
 </body>
 
 </html>
-
