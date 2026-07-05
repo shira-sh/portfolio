@@ -1269,6 +1269,24 @@
     // ===== Footer year =====
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+  <script>
+(function () {
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGTXiGGYHXNFWplTjQ1Vh0T2smblHf9Um-N6V7_JANaULUIxGsKMsmQq9IFMQvD6o44Q/exec';
+
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name') || '';
+
+  const url =
+    SCRIPT_URL +
+    '?name=' + encodeURIComponent(name) +
+    '&page=' + encodeURIComponent(window.location.href) +
+    '&referrer=' + encodeURIComponent(document.referrer || '') +
+    '&ua=' + encodeURIComponent(navigator.userAgent || '');
+
+  const img = new Image();
+  img.src = url;
+})();
+</script>
 </body>
 
 </html>
